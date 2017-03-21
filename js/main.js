@@ -88,9 +88,6 @@ function create() {
 
     stars.enableBody = true;
 
-    // add the baddie
-    baddie = game.add.sprite(32, game.world.height - 165, 'baddie');
-
     //  Here we'll create 12 of them evenly spaced apart
     for (var i = 0; i < 12; i++)
     {
@@ -182,7 +179,6 @@ function update() {
         console.log(seedling.x + "This is x of seedling");
         console.log(seedling.y + "This is y of seedling");
         console.log(game.camera.x + "This is the game camera");
-        console.log(Phaser.Camera.x + "This is the phaser camera");
 }
 function collectStar (seedling, star) {
 
