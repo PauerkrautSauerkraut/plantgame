@@ -1,5 +1,6 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 var seedling;
+var seedlingBrown;
 var baddie;
 var platforms;
 var cursors;
@@ -17,7 +18,8 @@ function preload() {
   game.load.spritesheet('seedling', 'assets/seedling.png', 54, 96, 9);
   game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32, 4);
   game.load.atlasJSONArray('dandelion', 'assets/DandelionEnemyClone.png',
-  'assets/DandelionEnemyClone.json')
+  'assets/DandelionEnemyClone.json');
+  game.load.atlasJSONArray('seedlingBrown', 'assets/SeedlingBrown.png', 'assets/SeedlingBrown.json');
 }
 
 function create() {
@@ -59,21 +61,28 @@ function create() {
     ledge = platforms.create(-150, 250, 'ground');
 
     ledge.body.immovable = true;
-  
+
     // The seedling and its settings
     seedling = game.add.sprite(32, game.world.height - 200, 'seedling');
+    seedlingBrown = game.add.sprite(50, game.world.height - 250, 'seedlingBrown');
+    //seedling.animations.add('bobble');
+    //seedling.animations.play('bobble', 8, true);
 
     //add dog thing
     baddie = game.add.sprite(96, game.world.height - 200, 'baddie');
 
     //  We need to enable physics on the seedling
     game.physics.arcade.enable(seedling);
+    game.physics.arcade.enable(seedlingBrown);
     game.physics.arcade.enable(baddie);
 
     //  seedling physics properties. Give the little guy a slight bounce.
     seedling.body.bounce.y = 0.2;
     seedling.body.gravity.y = 300;
     seedling.body.collideWorldBounds = false;
+    seedlingBrown.body.bounce.y = 0.2;
+    seedlingBrown.body.gravity.y = 300;
+    seedlingBrown.body.collideWorldBounds = false;
     baddie.body.gravity.y = 300;
     baddie.body.collideWorldBounds = false;
     baddie.body.bounce.y = 0.2;
@@ -128,10 +137,12 @@ function update() {
       baddie.body.velocity.x = 100;
     }
     game.physics.arcade.collide(seedling, platforms);
+    game.physics.arcade.collide(seedlingBrown, platforms);
     game.physics.arcade.collide(stars, platforms);
     game.physics.arcade.collide(baddie, platforms);
 
     game.physics.arcade.overlap(seedling, stars, collectStar, null, this);
+    game.physics.arcade.overlap(seedlingBrown, stars, collectStar, null, this);
     game.physics.arcade.overlap(seedling, baddie, seedlingDies, null, this);
 
     //  Reset the seedlings velocity (movement)
@@ -165,8 +176,10 @@ function update() {
     {
         //  Stand still
         seedling.animations.stop();
+        seedlingBrown.animations.stop();
 
         seedling.frame = 4;
+        seedlingBrown.frame = 0;
     }
 
     //  Allow the seedling to jump if they are touching the ground.
