@@ -147,6 +147,7 @@ function update() {
 
     //  Reset the seedlings velocity (movement)
     seedling.body.velocity.x = 0;
+    seedlingBrown.body.velocity.x = 0;
 
     if (cursors.left.isDown)
     {
@@ -154,6 +155,11 @@ function update() {
         seedling.body.velocity.x = -150;
 
         seedling.animations.play('left');
+
+        seedlingBrown.body.velocity.x = -150;
+
+        seedlingBrown.animations.play('left');
+
     }
     else if (cursors.right.isDown)
     {
@@ -161,12 +167,18 @@ function update() {
         seedling.body.velocity.x = 150;
 
         seedling.animations.play('right');
+
+        seedlingBrown.body.velocity.x = 150;
+
+        seedlingBrown.animations.play('right');
     }
     else if (cursors.up.isDown)
     {
       if (characterJumped == false)
       {
         seedling.body.velocity.y = -300;
+        console.log("the guy jumps");
+        seedlingBrown.body.velocity.y = -300;
         console.log("the guy jumps");
         //character can only jump after it jumps once/lands on gruond??
       }
@@ -186,14 +198,17 @@ function update() {
     if (cursors.up.isDown && seedling.body.touching.down)
     {
         seedling.body.velocity.y = -150;
+        seedlingBrown.body.velocity.y = -150;
     }
         //game.camera.x = seedling.x;
         //game.camera.y = seedling.y;
         console.log(seedling.x + "This is x of seedling");
         console.log(seedling.y + "This is y of seedling");
+        console.log(seedlingBrown.x + "This is x of seedling");
+        console.log(seedlingBrown.y + "This is y of seedling");
         console.log(game.camera.x + "This is the game camera");
 }
-function collectStar (seedling, star) {
+function collectStar (seedling, star)  {
 
     // Removes the star from the screen
     star.kill();
@@ -204,9 +219,31 @@ function collectStar (seedling, star) {
 
 
 }
+function collectStar (seedlingBrown, star)  {
+
+    // Removes the star from the screen
+    star.kill();
+
+    //  Add and update the score
+    score += 10;
+    scoreText.text = 'Score: ' + score;
+}
+
 function seedlingDies (seedling, baddie) {
 
   seedling.kill();
+  var style = { font: "32px Arial", fill: "black", wordWrap: true, align: "center", backgroundColor: "white" };
+
+  var text = game.add.text(0, 0, "you died :(", style);
+  text.anchor.set(0.5);
+
+  text.x = 200;
+  text.y = 200;
+
+}
+function seedlingBrownDies (seedlingBrown, baddie) {
+
+  seedlingBrown.kill();
   var style = { font: "32px Arial", fill: "black", wordWrap: true, align: "center", backgroundColor: "white" };
 
   var text = game.add.text(0, 0, "you died :(", style);
