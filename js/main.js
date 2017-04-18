@@ -24,7 +24,7 @@ function preload() {
 
 function create() {
 
-    game.world.setBounds(0, 0, 20000, 600);
+    game.world.setBounds(0, 10, 2000, 600);
 
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
