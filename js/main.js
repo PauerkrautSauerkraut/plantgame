@@ -140,7 +140,6 @@ function update() {
     }
     game.physics.arcade.collide(seedling, platforms);
     game.physics.arcade.collide(seedlingBrown, platforms);
-    game.physics.arcade.collide(seedlingBrown, ground);
     game.physics.arcade.collide(stars, platforms);
     game.physics.arcade.collide(baddie, platforms);
 
