@@ -64,7 +64,7 @@ function create() {
 
     // The seedling and its settings
     seedling = game.add.sprite(32, game.world.height - 200, 'seedling');
-    seedlingBrown = game.add.sprite(50, game.world.height - 250, 'seedlingBrown');
+    seedlingBrown = game.add.sprite(50, game.world.height - 200, 'seedlingBrown');
     seedlingBrown.animations.add('bobble');
     seedlingBrown.animations.play('bobble', 8, true);
     //seedling.animations.add('bobble');
